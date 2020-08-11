@@ -27,6 +27,7 @@ func (a *StonkBank) Insert(key string, value Stonk) {
 	a.Stonks[key] = value
 }
 
+// RenderStonk,  Renders the selected stock to the user.
 func RenderStonk(s Stonk) {
 	data := [][]string{
 		[]string{s.Country, s.Currency, s.Code},
@@ -91,7 +92,8 @@ func PromptDisplay(c *cli.Context) error {
 	stonk := Stonk{}
 
 	// Modeling the prompt after the structure of a simple guessing game. User inputs
-	// a currency, validation is run and the user is shown all the information about a currencyF
+	// a currency, validation is run and the user is shown all the information about a currency if the
+	// currency is supported
 	for {
 		validate := func(input string) error {
 			var ok bool
@@ -187,7 +189,6 @@ func WriteToFile(data []string) error {
 
 	return nil
 }
-
 
 func DownloadFile(url string) error {
 	resp, err := http.Get(url)
