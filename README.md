@@ -13,27 +13,34 @@ step CSV update process to update the stock data .
 
 - Clone the Repository
 
-  git clone https://github.com/mar-tina/stonks.git
+  `git clone https://github.com/mar-tina/stonks.git`
 
-  cd stonks
+  `cd stonks`
 
-  go run main.go helpers.go -p stonks.csv
+  `go run main.go helpers.go -p stonks.csv`
 
   `or`
 
-  go build.
+  `go build.`
 
-  ./stonks -p stonks.csv
+  `./stonks -p stonks.csv`
 
 ### Modes
 
 Display Mode :
 
-    This mode displays data according to the passed in input .
+    This is the default mode.  It displays data according to the passed in user input prompt .
+
+![Default Mode](https://github.com/mar-tina/stonks/defaultmode.png)
 
 Update Mode :
 
     This mode allows you to update the CSV File.
+    ./stonks -u on
+
+The on parameter is necessary to switch to update mode.
+
+![Update Mode](https://github.com/mar-tina/stonks/updatemode.png)
 
 ### Flags
 
