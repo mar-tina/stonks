@@ -29,7 +29,7 @@ step CSV update process to update the stock data .
 
 Display Mode :
 
-    This is the default mode.  It displays data according to the passed in user input prompt .
+    This is the default mode.  It displays data according to passed in user input.
 
 ![Default Mode](https://github.com/mar-tina/stonks/blob/master/defaultmode.png)
 
