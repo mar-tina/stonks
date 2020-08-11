@@ -1,12 +1,9 @@
 package main
 
 import (
-	"errors"
-	"fmt"
 	"log"
 	"os"
 
-	"github.com/manifoldco/promptui"
 	"github.com/urfave/cli/v2"
 )
 
@@ -14,49 +11,35 @@ func main() {
 
 	app := cli.App{
 		Name:  "stonks",
-		Usage: ". ",
+		Usage: "Find out whether we support your stonks",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:    "path",
 				Aliases: []string{"p"},
-				Usage:   "Look up the Stonk you need for the currency you desire",
+				Usage:   "Filepath for the stocks input",
+			},
+			&cli.StringFlag{
+				Name:    "online",
+				Aliases: []string{"o"},
+				Usage:   "Hosted Filepath for the stocks input",
+			},
+			&cli.StringFlag{
+				Name:    "update",
+				Aliases: []string{"u"},
+				Usage:   "Update mode that allows editing CSV File",
 			},
 		},
 		Action: func(c *cli.Context) error {
-			log.Printf("The file path %v", c.String("p"))
-			ReadCSVFile(c.String("p"))
-			for {
-				validate := func(input string) error {
-					if len(input) < 3 {
-						return errors.New("Please input a valid currency")
-					}
-					return nil
-				}
-
-				prompt := promptui.Prompt{
-					Label:    "Currency",
-					Validate: validate,
-				}
-
-				result, err := prompt.Run()
-
-				if err != nil {
-					fmt.Printf("Prompt failed %v\n", err)
-					return err
-				}
-
-				fmt.Printf("You choose %q\n", result)
-
+			if c.String("u") == "on" {
+				return UpdateCSV(c)
 			}
+			return PromptDisplay(c)
 		},
 	}
 
 	err := app.Run(os.Args)
 	if err != nil {
-		log.Fatal("")
+		log.Printf("Oops something went wrong . %v", err.Error())
 	}
-
-	// Modeling the prompt after the structure of a simple guessing game. User inputs
-	// a currency, validation is run and the user is shown all the information about a currencyF
 
 }
