@@ -31,7 +31,7 @@ Display Mode :
 
     This is the default mode.  It displays data according to the passed in user input prompt .
 
-![Default Mode](https://github.com/mar-tina/stonks/defaultmode.png)
+![Default Mode](https://github.com/mar-tina/stonks/blob/master/defaultmode.png)
 
 Update Mode :
 
@@ -40,7 +40,7 @@ Update Mode :
 
 The on parameter is necessary to switch to update mode.
 
-![Update Mode](https://github.com/mar-tina/stonks/updatemode.png)
+![Update Mode](https://github.com/mar-tina/stonks/blob/master/updatemode.png)
 
 ### Flags
 
