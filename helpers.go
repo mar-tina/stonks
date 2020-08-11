@@ -132,7 +132,7 @@ func UpdateCSV(c *cli.Context) error {
 
 	validate := func(input string) error {
 		if input == "" {
-			return errors.New("We currently do not support the specified currency")
+			return errors.New("Please provide valid input")
 		}
 		return nil
 	}
