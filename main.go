@@ -4,10 +4,16 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/urfave/cli/v2"
 )
 
 func main() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 
 	app := cli.App{
 		Name:  "stonks",
@@ -37,7 +43,7 @@ func main() {
 		},
 	}
 
-	err := app.Run(os.Args)
+	err = app.Run(os.Args)
 	if err != nil {
 		log.Printf("Oops something went wrong . %v", err.Error())
 	}
