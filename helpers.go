@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/manifoldco/promptui"
 	"github.com/mar-tina/stonks/analyzer"
@@ -64,6 +65,32 @@ func RenderStonk(s Stonk) {
 		table.Append(v)
 	}
 	table.Render()
+}
+
+func RenderCheckPrice(s Stonk, amount float64, base string) {
+	data := [][]string{
+		[]string{base, s.Country, s.Currency, s.Code, fmt.Sprintf("%f", amount), time.Now().Format("Mon Jan 2 15:04:05 -0700 MST 2006")},
+	}
+
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{"Base", "Country", "Currency", "ISO 4217 Code", "Price", "Time"})
+
+	for _, v := range data {
+		table.Append(v)
+	}
+	table.Render()
+}
+
+func RenderAllStonks(c *cli.Context) error {
+	sb, err := ReadCSVFile(c.String("p"))
+	if err != nil {
+		return err
+	}
+	for _, value := range sb.Stonks {
+		RenderStonk(value)
+	}
+
+	return nil
 }
 
 func ReadCSVFile(path string) (*StonkBank, error) {
@@ -175,6 +202,72 @@ func ReadLanguagesFile(path string) (*StonkBank, error) {
 	return sb, nil
 }
 
+func CheckPrice(c *cli.Context) error {
+
+	sb, err := ReadCSVFile(c.String("p"))
+	if err != nil {
+		sb, err = ReadHostedFile(c.String("o"))
+		if err != nil {
+			return err
+		}
+	}
+
+	stonk := Stonk{}
+	lyzer := analyzer.Init()
+
+	for {
+		validate := func(input string) error {
+			var ok bool
+			stonk, ok = sb.Stonks[input]
+			if !ok {
+				return errors.New("We currently do not support the specified currency")
+			}
+			return nil
+		}
+
+		prompt := promptui.Prompt{
+			Label:    "Currency",
+			Validate: validate,
+		}
+
+		currency, err := prompt.Run()
+
+		if err != nil {
+			fmt.Printf("Something went wrong %v\n", err)
+			return err
+		}
+
+		res, err := lyzer.GetCurrentPrice([]string{currency})
+		if err != nil {
+			fmt.Printf("Something went wrong %v\n", err)
+			return err
+		}
+
+		var base string
+		var rate float64
+		// CurrencyAnalyzer uses a different parameter for setting the base currency and rates parameter.
+		if res["base"] == "" {
+			base = res["source"].(string)
+			rate = res["quotes"].(map[string]interface{})[stonk.Code].(float64)
+		} else {
+			base = res["base"].(string)
+			rate = res["rates"].(map[string]interface{})[stonk.Code].(float64)
+		}
+
+		RenderCheckPrice(stonk, rate, base)
+	}
+}
+
+func ListAllStocks(c *cli.Context) error {
+	if c.String("p") == "" {
+		log.Printf("Please provide a path for the stocks input")
+		os.Exit(1)
+	}
+
+	RenderAllStonks(c)
+	return nil
+}
+
 func ConversionMode(c *cli.Context) error {
 	sb, err := ReadLanguagesFile(c.String("lp"))
 	if err != nil {
@@ -202,6 +295,7 @@ func ConversionMode(c *cli.Context) error {
 	}
 
 	PopulateStocksForExistingStockBank(sb, c.String("p"))
+	lyzer := analyzer.Init()
 
 	for {
 		validate := func(input string) error {
@@ -250,7 +344,6 @@ func ConversionMode(c *cli.Context) error {
 			return err
 		}
 
-		lyzer := analyzer.Init()
 		parsedAmount, err := strconv.ParseFloat(amount, 64)
 		response, err := lyzer.Convert(to, from, parsedAmount)
 		if err != nil {
