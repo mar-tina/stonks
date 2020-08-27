@@ -15,6 +15,8 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 
+	PopulateResponses()
+
 	app := cli.App{
 		Name:  "stonks",
 		Usage: "Find out whether we support your stonks",
@@ -34,12 +36,30 @@ func main() {
 				Aliases: []string{"u"},
 				Usage:   "Update mode that allows editing CSV File",
 			},
+			&cli.StringFlag{
+				Name:    "conversion",
+				Aliases: []string{"c"},
+				Usage:   "Conversion mode that allows users to query the API and convert between currencies",
+			},
+			&cli.StringFlag{
+				Name:    "Language File Path",
+				Aliases: []string{"lp"},
+				Usage:   "File path for the languages input",
+			},
+			&cli.StringFlag{
+				Name:    "Default Language",
+				Aliases: []string{"dl"},
+				Usage:   "Sets the default language for the running instance",
+			},
 		},
 		Action: func(c *cli.Context) error {
 			if c.String("u") == "on" {
 				return UpdateCSV(c)
+			} else if c.String("c") == "on" {
+				return ConversionMode(c)
+			} else {
+				return PromptDisplay(c)
 			}
-			return PromptDisplay(c)
 		},
 	}
 

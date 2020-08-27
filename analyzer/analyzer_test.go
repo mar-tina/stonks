@@ -5,21 +5,17 @@ import (
 	"testing"
 )
 
-func TestGetCurrentPrice(t *testing.T) {
+func TestFixerGetCurrentPrice(t *testing.T) {
 	// Init Analyzer
-	var lyzer Analyzer
-	lyzer = &Fixer{}
-	lyzer.Init()
+	lyzer := Init()
 
 	res, err := lyzer.GetCurrentPrice([]string{"USD", "EUR"})
 	if err != nil {
 		log.Printf("Failed to get current price")
 	}
 
-	stonk := make(map[string]interface{})
-	stonk["success"] = true
 	got := res["success"]
-	want := stonk["success"]
+	want := true
 
 	if got != want {
 		t.Errorf("Got %v, want %v", got, want)
@@ -28,19 +24,17 @@ func TestGetCurrentPrice(t *testing.T) {
 
 func TestConvert(t *testing.T) {
 	// Init Analyzer
-	var lyzer Analyzer
-	lyzer = &Fixer{}
-	lyzer.Init()
+	lyzer := Init()
 
-	res, err := lyzer.Convert("USD", "EUR", 25)
+	res, err := lyzer.Convert("USD", "KES", 10000)
 	if err != nil {
-		log.Printf("Failed to get current price")
+		t.Errorf("Failed to complete conversion %v ", err.Error())
 	}
 
-	stonk := make(map[string]interface{})
-	stonk["success"] = true
 	got := res["success"]
-	want := stonk["success"]
+	want := true
+
+	log.Printf("THE RES %v", res["result"])
 
 	if got != want {
 		t.Errorf("Got %v, want %v", got, want)
