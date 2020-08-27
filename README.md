@@ -36,7 +36,7 @@ step CSV update process to update the stock data .
 To be able to run tests you need to have you API KEYS copied into the analyzer/analyzer.go file
 respective variables.
 
-![Keys ](https://github.com/mar-tina/stonks/blob/master/keys.png)
+![Keys ](https://github.com/mar-tina/stonks/blob/stonks-v2/keys.png)
 
     Run : go test -v
 
@@ -66,7 +66,7 @@ GetCurrentPrice Mode :
 
 The on parameter is necessary to switch to update mode.
 
-![GetCurrenPriceMode](https://github.com/mar-tina/stonks/blob/master/gp.png)
+![GetCurrenPriceMode](https://github.com/mar-tina/stonks/blob/stonks-v2/gp.png)
 
 Conversion Mode :
 
@@ -76,12 +76,12 @@ Conversion Mode :
 
 There is a language picker that allows you to choose the language you would like to use:
 
-![LanguagePrompt](https://github.com/mar-tina/stonks/blob/master/langpicker.png)
+![LanguagePrompt](https://github.com/mar-tina/stonks/blob/stonks-v2/langpicker.png)
 
 After picking the language the terminal switches to the default prompt style with the prompt labels in
 the specified language.
 
-![ConversionMode](https://github.com/mar-tina/stonks/blob/master/convert.png)
+![ConversionMode](https://github.com/mar-tina/stonks/blob/stonks-v2/convert.png)
 
 List All Mode :
 
@@ -89,7 +89,7 @@ List All Mode :
 
     ./stonks -v on -p stonks.csv
 
-![ListAllMode](https://github.com/mar-tina/stonks/blob/master/all.png)
+![ListAllMode](https://github.com/mar-tina/stonks/blob/stonks-v2/all.png)
 
 ### Flags
 
