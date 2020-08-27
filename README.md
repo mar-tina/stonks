@@ -25,6 +25,12 @@ step CSV update process to update the stock data .
 
   `./stonks -p stonks.csv`
 
+### Environment Variables
+
+    FIXER_KEY=
+
+    CL_KEY=
+
 ### Running tests
 
 To be able to run tests you need to have you API KEYS copied into the analyzer/analyzer.go file
