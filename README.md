@@ -53,7 +53,7 @@ Update Mode :
     This mode allows you to update the CSV File.
     ./stonks -u on
 
-The on parameter is necessary to switch to update mode.
+The on parameter is necessary to switch modes.
 
 ![Update Mode](https://github.com/mar-tina/stonks/blob/master/updatemode.png)
 
@@ -64,7 +64,7 @@ GetCurrentPrice Mode :
 
     ./stonks -gp on -p stonks.csv
 
-The on parameter is necessary to switch to update mode.
+The on parameter is necessary to switch modes.
 
 ![GetCurrenPriceMode](https://github.com/mar-tina/stonks/blob/stonks-v2/gp.png)
 
@@ -76,7 +76,7 @@ Conversion Mode :
 
 There is a language picker that allows you to choose the language you would like to use:
 
-![LanguagePrompt](https://github.com/mar-tina/stonks/blob/stonks-v2/langpicker.png)
+![LanguagePrompt](https://github.com/mar-tina/stonks/blob/stonks-v2/lp.png)
 
 After picking the language the terminal switches to the default prompt style with the prompt labels in
 the specified language.
