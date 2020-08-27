@@ -27,6 +27,10 @@ step CSV update process to update the stock data .
 
 ### Environment Variables
 
+Fixer KEY: https://fixer.io/
+
+CurrencyLayer KEY: https://currencylayer.com/
+
     FIXER_KEY=
 
     CL_KEY=
