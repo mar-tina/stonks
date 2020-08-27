@@ -51,15 +51,29 @@ func main() {
 				Aliases: []string{"dl"},
 				Usage:   "Sets the default language for the running instance",
 			},
+
+			&cli.StringFlag{
+				Name:    "Get Current Price",
+				Aliases: []string{"gp"},
+				Usage:   "Get the current stock price",
+			},
+			&cli.StringFlag{
+				Name:    "List All Stocks",
+				Aliases: []string{"v"},
+				Usage:   "Lists all the available stocks",
+			},
 		},
 		Action: func(c *cli.Context) error {
 			if c.String("u") == "on" {
 				return UpdateCSV(c)
 			} else if c.String("c") == "on" {
 				return ConversionMode(c)
-			} else {
-				return PromptDisplay(c)
+			} else if c.String("gp") == "on" {
+				return CheckPrice(c)
+			} else if c.String("v") == "on" {
+				return ListAllStocks(c)
 			}
+			return PromptDisplay(c)
 		},
 	}
 
