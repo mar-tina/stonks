@@ -282,7 +282,7 @@ func ConversionMode(c *cli.Context) error {
 	if c.String("dl") == "" {
 		prompt := promptui.Select{
 			Label: "Select Language",
-			Items: []string{"en", "fr", "pt", "sw"},
+			Items: []string{"en [English]", "fr [French]", "pt [Portugues]", "sw [Swedish]"},
 		}
 
 		_, result, err := prompt.Run()
