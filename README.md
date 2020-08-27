@@ -25,6 +25,15 @@ step CSV update process to update the stock data .
 
   `./stonks -p stonks.csv`
 
+### Running tests
+
+To be able to run tests you need to have you API KEYS copied into the analyzer/analyzer.go file
+respective variables.
+
+![Keys ](https://github.com/mar-tina/stonks/blob/master/defaultmode.png)
+
+    Run : go test -v
+
 ### Modes
 
 Display Mode :
@@ -41,6 +50,40 @@ Update Mode :
 The on parameter is necessary to switch to update mode.
 
 ![Update Mode](https://github.com/mar-tina/stonks/blob/master/updatemode.png)
+
+GetCurrentPrice Mode :
+
+    This mode allows you to view the current going price for a stock in relation to
+    the base currently set as 'EUR'
+
+    ./stonks -gp on -p stonks.csv
+
+The on parameter is necessary to switch to update mode.
+
+![GetCurrenPriceMode](https://github.com/mar-tina/stonks/blob/master/gp.png)
+
+Conversion Mode :
+
+    This mode allows you to convert from one currency to another.
+
+    ./stonks -c on -lp lang.csv -p stonks.csv
+
+There is a language picker that allows you to choose the language you would like to use:
+
+![LanguagePrompt](https://github.com/mar-tina/stonks/blob/master/langpicker.png)
+
+After picking the language the terminal switches to the default prompt style with the prompt labels in
+the specified language.
+
+![ConversionMode](https://github.com/mar-tina/stonks/blob/master/convert.png)
+
+List All Mode :
+
+    This mode allows you to list all the available stocks
+
+    ./stonks -v on -p stonks.csv
+
+![ListAllMode](https://github.com/mar-tina/stonks/blob/master/all.png)
 
 ### Flags
 
