@@ -12,7 +12,7 @@ import (
 
 var (
 	FIXER_KEY = ""
-	CL_KEY    = "8b4fcd671369c6bf9c332d88843333bf"
+	CL_KEY    = ""
 )
 
 type Analyzer interface {
