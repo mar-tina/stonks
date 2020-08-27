@@ -36,7 +36,7 @@ step CSV update process to update the stock data .
 To be able to run tests you need to have you API KEYS copied into the analyzer/analyzer.go file
 respective variables.
 
-![Keys ](https://github.com/mar-tina/stonks/blob/master/defaultmode.png)
+![Keys ](https://github.com/mar-tina/stonks/blob/master/keys.png)
 
     Run : go test -v
 
