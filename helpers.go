@@ -27,10 +27,10 @@ var Responses map[string][]string
 
 func PopulateResponses() {
 	Responses = make(map[string][]string)
-	Responses["en"] = []string{"The current price for ", "is "}
-	Responses["fr"] = []string{"Le prix actuel pour ", "est de "}
-	Responses["sw"] = []string{"Bei ya sasa ya ", "ni "}
-	Responses["pt"] = []string{"O preço atual do ", "é "}
+	Responses["en"] = []string{"Currency ", "From ", "To ", "Amount "}
+	Responses["fr"] = []string{"Devise ", "De ", "À ", "Prix "}
+	Responses["sw"] = []string{"Fedha ", "Kutoka ", "Kuenda ", "Bei "}
+	Responses["pt"] = []string{"Moeda ", "De ", "Para ", "Preço "}
 }
 
 type Language struct {
@@ -291,12 +291,13 @@ func ConversionMode(c *cli.Context) error {
 			return fmt.Errorf("Something went wrong. %v", err.Error())
 		}
 
+		sb.DefaultLang = sb.Languages[result]
 		fmt.Printf("You choose %q\n", result)
 	}
 
 	PopulateStocksForExistingStockBank(sb, c.String("p"))
 	lyzer := analyzer.Init()
-
+	lang := Responses[sb.DefaultLang.Code]
 	for {
 		validate := func(input string) error {
 			var ok bool
@@ -318,21 +319,21 @@ func ConversionMode(c *cli.Context) error {
 		}
 
 		fromPrompt := promptui.Prompt{
-			Label:    "FROM [currency]",
+			Label:    "" + lang[1] + "[" + lang[0] + "]",
 			Validate: validate,
 		}
 
 		from, err := fromPrompt.Run()
 
 		toPrompt := promptui.Prompt{
-			Label:    "TO [currency]",
+			Label:    "" + lang[2] + "[" + lang[0] + "]",
 			Validate: validate,
 		}
 
 		to, err := toPrompt.Run()
 
 		amountPrompt := promptui.Prompt{
-			Label:    "AMOUNT ",
+			Label:    "" + lang[3] + "[" + lang[0] + "]",
 			Validate: amountValidate,
 		}
 
@@ -350,7 +351,7 @@ func ConversionMode(c *cli.Context) error {
 			return fmt.Errorf("Failed to complete conversion %v ", err.Error())
 		}
 
-		log.Printf(" %v : %v -> %v is %v", amount, from, to, response["result"])
+		log.Printf(" %v : %v -> %v : %v", amount, from, to, response["result"])
 	}
 }
 
