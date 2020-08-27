@@ -98,3 +98,11 @@ List All Mode :
     -o "online hosted file" . Specifies a remote hosted file location.
 
     -u "update" . Drops the user into the update mode .
+
+    -lp "language path" . File path for the languages input
+
+    -c "Conversion mode" . Conversion mode that allows users to query the API and convert between currencies
+
+    -gp "Get Current Price Mode" . Get the current stock price
+
+    -v "List all stocks" . Lists all the available stocks
